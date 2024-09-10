@@ -48,6 +48,17 @@ const plugins = [
     options: {
       upload_dir: "uploads",
     },
+    
+    resolve: `medusa-file-spaces`,
+    options: {
+        spaces_url: process.env.SPACE_URL,
+        bucket: process.env.SPACE_BUCKET,
+        region: process.env.SPACE_REGION,
+        endpoint: process.env.SPACE_ENDPOINT,
+        access_key_id: process.env.SPACE_ACCESS_KEY_ID,
+        secret_access_key: process.env.SPACE_SECRET_ACCESS_KEY,
+    },
+    
   },
   {
     resolve: "@medusajs/admin",
@@ -62,7 +73,7 @@ const plugins = [
 ];
 
 const modules = {
-  /*eventBus: {
+  eventBus: {
     resolve: "@medusajs/event-bus-redis",
     options: {
       redisUrl: REDIS_URL
@@ -73,7 +84,7 @@ const modules = {
     options: {
       redisUrl: REDIS_URL
     }
-  },*/
+  },
 };
 
 /** @type {import('@medusajs/medusa').ConfigModule["projectConfig"]} */
