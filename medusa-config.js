@@ -43,18 +43,33 @@ const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const plugins = [
   `medusa-fulfillment-manual`,
   {
-    resolve:`medusa-payment-razorpay`,
-    options:{
-         key_id: process.env.RAZORPAY_ID,
-                key_secret: process.env.RAZORPAY_SECRET,
-                razorpay_account: process.env.RAZORPAY_ACCOUNT,                
-                automatic_expiry_period: 30, /*any value between 12 minutes and 30 days expressed in minutes*/
-                manual_expiry_period: 7200,
-                refund_speed: "normal", 
-                webhook_secret: process.env.RAZORPAY_WEBHOOK_SECRET,
-                auto_capture: true // if you want to automatically capture, 
-    }
-  },
+     resolve: "@medusajs/medusa/payment",
+      options: {
+        providers: [
+          {
+            resolve: "@sgftech/payment-razorpay",
+            id: "razorpay",
+            options: {
+              key_id:
+                  process?.env?.RAZORPAY_TEST_KEY_ID ??
+                  process?.env?.RAZORPAY_ID,
+              key_secret:
+                  process?.env?.RAZORPAY_TEST_KEY_SECRET ??
+                  process?.env?.RAZORPAY_SECRET,
+              razorpay_account:
+                  process?.env?.RAZORPAY_TEST_ACCOUNT ??
+                  process?.env?.RAZORPAY_ACCOUNT,
+              automatic_expiry_period: 30 /* any value between 12minuts and 30 days expressed in minutes*/,
+              manual_expiry_period: 20,
+              refund_speed: "normal",
+              webhook_secret:
+                  process?.env?.RAZORPAY_TEST_WEBHOOK_SECRET ??
+                  process?.env?.RAZORPAY_WEBHOOK_SECRET
+          }
+          },
+        ],
+     } },
+  
   {
     resolve: `@medusajs/file-local`,
     options: {
